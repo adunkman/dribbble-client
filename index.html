@@ -4,6 +4,7 @@
       
       <title>Dribbble</title>
       
+      <link rel="stylesheet" type="text/css" href="style/reset-min.css" />
       <link rel="stylesheet/less" type="text/less" href="style/list.less" />
       
       <script type="text/javascript" src="script/lib/jquery-1.6.2.js"></script>
@@ -11,10 +12,59 @@
       <script type="text/javascript" src="script/lib/knockout-1.2.1.debug.js"></script>
       <script type="text/javascript" src="script/lib/less-1.1.4.js"></script>
       
+      <script type="text/javascript" src="script/viewModels/listView.js"></script>
+      
+      <script type="text/javascript">
+         $(document).ready(function () {
+            
+            dribbble.viewModels.listView.url("http://api.dribbble.com/shots/popular");
+            ko.applyBindings(dribbble.viewModels);
+            
+         });
+      </script>
+      
    </head>
    <body>
       
+      <header class="page">
+         <h1>dribbble</h1>
+         
+         <nav>
+            <ul>
+               <li><a>Popular</a></li>
+               <li><a>Everyone</a></li>
+               <li><a>Debuts</a></li>
+            </ul>
+         </nav>
+      </header>
       
+      <section class="listView">
+         <ul data-bind="template: { name: 'listViewItem', foreach: listView.items }">
+         </ul>
+         
+         <script id="listViewItem" type="text/x-jquery-tmpl">
+            <li class="item">
+               <img src="${player.avatar_url}" class="avatar" />
+               <img src="${image_teaser_url}" class="shot" />
+               
+               <header>
+                  <h3>${title}</h3>
+                  <time>${created_at}</time>
+               </header>
+               
+               <ul>
+                  <li class="views">${views_count} views</li>
+                  <li class="comments">${comments_count} comments</li>
+                  <li class="likes">${likes_count} likes</li>
+               </ul>
+               
+               <footer>
+                  <h3>${player.name} <span class="username">${player.username}</span></h3>
+               </footer>
+            </li>
+         </script>
+         
+      </section>
       
    </body>
 </html>

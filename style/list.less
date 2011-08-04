@@ -1,11 +1,89 @@
+@import 'mixins.less';
+
 html
 {
    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-   font-size: 10pt;
-   line-height: 1.4em;
+   font-size: 12pt;
+   
+   background: #f0f0f0;
+   color: #333;
 }
 
-body
+header.page
 {
-   background: #fff;
+   width: 80%;
+   margin: 100px auto 0 auto;
+   
+   h1
+   {
+      font-family: advent;
+      font-size: 30pt;
+      font-weight: 600;
+   }
+   
+   nav
+   {
+      .background-gradient(#ffffff, #cccccc);
+      text-transform: uppercase;
+   }
+}
+
+section
+{
+   width: 80%;
+   margin: 0 auto 100px auto;
+   
+   &.listView
+   {
+      li.item
+      {
+         padding: 5px;
+         margin: 5px;
+         border-bottom: 2px solid #dddddd;
+         
+         img.avatar
+         {
+            float: right;
+            width: 80px;
+            height: 80px;
+            
+            margin-left: 10px;
+            padding: 3px;
+            border: 1px solid #cccccc;
+            background-color: #ffffff;
+            border-radius: 4px;
+         }
+         
+         img.shot
+         {
+            float: left;
+            width: 200px;
+            height: 150px;
+            
+            margin-right: 10px;
+            padding: 3px;
+            border: 1px solid #cccccc;
+            background-color: #ffffff;
+            border-radius: 4px;
+         }
+         
+         header
+         {
+            h3
+            {
+               font-weight: bold;
+            }
+            
+            margin-bottom: 10px;
+         }
+         
+         &:after
+         {
+            clear: both;
+            display: block;
+            height: 0;
+            content: "";
+         }
+      }
+   }
 }
