@@ -6,3 +6,18 @@
    filter: ~"progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=@{top},EndColorStr=@{bottom})";
    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=@{top},EndColorStr=@{bottom})"
 }
+
+.box-shadow (@x, @y, @blur, @alpha)
+{
+   @val: @x @y @blur rgba(0, 0, 0, @alpha);
+
+   -webkit-box-shadow: @val;
+   -moz-box-shadow: @val;
+   box-shadow: @val;
+}
+
+.border-radius (@radius: 5px) {
+   -webkit-border-radius: @radius;
+   -moz-border-radius: @radius;
+   border-radius: @radius;
+}

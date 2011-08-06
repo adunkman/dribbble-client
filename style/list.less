@@ -2,88 +2,101 @@
 
 html
 {
-   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-   font-size: 12pt;
    
-   background: #f0f0f0;
-   color: #333;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 100%;
+
+   color: #999;
+   background: #333A41 url('images/list-bg.png');
+   height: 100%;
+   
+   overflow: scroll;
+}
+
+body
+{
+   margin-top: 50px;
+   padding: 20px;
 }
 
 header.page
 {
-   width: 80%;
-   margin: 100px auto 0 auto;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   
+   .background-gradient(rgba(68, 76, 85, 0.9), rgba(51, 58, 65, 0.9));
+   .box-shadow(5px, 0, 5px, 0.5);
+   
+   div.wrapper
+   {
+      width: 88%;
+      margin: 0 auto;
+   }
    
    h1
    {
-      font-family: advent;
-      font-size: 30pt;
-      font-weight: 600;
+      text-indent: -10000px;
+      overflow: hidden;
+      width: 115px;
+      height: 30px;
+      margin: 10px 10px 10px 0;
+      
+      background: url('images/courrrt.png') no-repeat;
+      opacity: 0.8;
    }
    
    nav
    {
-      .background-gradient(#ffffff, #cccccc);
-      text-transform: uppercase;
+      float: right;
+      height: 30px;
+      margin: 5px 0 0 10px;
+      
+      li
+      {
+         display: inline-block;
+         padding: 3px 10px;
+         .border-radius(12px);
+         
+         cursor: pointer;
+         
+         &:hover
+         {
+            text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
+            color: #bbb;
+         }
+         
+         &.selected
+         {
+            background-color: #6A737C;
+            text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
+            color: #bbb;
+         }
+      }
    }
 }
 
-section
+section.shots-list
 {
-   width: 80%;
-   margin: 0 auto 100px auto;
+   width: 88%;
+   margin: 0 auto;
    
-   &.listView
+   ul
    {
-      li.item
+      
+      li 
       {
-         padding: 5px;
-         margin: 5px;
-         border-bottom: 2px solid #dddddd;
+         float: left;
+         overflow: hidden;
          
-         img.avatar
-         {
-            float: right;
-            width: 80px;
-            height: 80px;
-            
-            margin-left: 10px;
-            padding: 3px;
-            border: 1px solid #cccccc;
-            background-color: #ffffff;
-            border-radius: 4px;
-         }
+         margin: 15px 8px;
+         width: 200px;
+         height: 150px;
          
-         img.shot
-         {
-            float: left;
-            width: 200px;
-            height: 150px;
-            
-            margin-right: 10px;
-            padding: 3px;
-            border: 1px solid #cccccc;
-            background-color: #ffffff;
-            border-radius: 4px;
-         }
-         
-         header
-         {
-            h3
-            {
-               font-weight: bold;
-            }
-            
-            margin-bottom: 10px;
-         }
-         
-         &:after
-         {
-            clear: both;
-            display: block;
-            height: 0;
-            content: "";
-         }
+         background-color: rgba(255, 255, 255, 0.2);
+         .box-shadow(2px, 2px, 2px, 0.4);
+         .border-radius(7px);
       }
    }
 }
