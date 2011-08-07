@@ -1,8 +1,14 @@
 (function ($, window) {
    
-   if (!window.dribbble || !window.dribbble.viewModel) {
-      throw "dribbble.viewModel is required."
+   if (!window.courrrt || !window.courrrt.viewModel) {
+      throw "courrrt.viewModel is required."
    }
+   
+   if (!window.courrrt.shot) {
+      throw "courrrt.shot is required."
+   }
+   
+   var shot = window.courrrt.shot;
    
    var list = ko.observable();
    $.extend(list, {
@@ -12,7 +18,7 @@
          debuts: "http://api.dribbble.com/shots/debuts"
       },
 
-      items: ko.observableArray(),
+      shots: ko.observableArray(),
       stats: ko.observable(),
       state: ko.observable()
    });
@@ -24,7 +30,7 @@
          per_page: null,
          total: null
       });
-      this.items([]);
+      this.shots([]);
    }.bind(list);
    
    list.reset();
@@ -46,15 +52,15 @@
       $.ajax({
          url: this.feeds[this()],
          method: "get",
-         data: { page: page },
+         data: { page: page, per_page: 30 },
          dataType: "jsonp",
          success: function (data) {
             
-            var items = this.items();
-            $.each(data.shots, function (index, item) {
-               items.push(item);
+            var shots = this.shots();
+            $.each(data.shots, function (index, shotData) {
+               shots.push(new shot(shotData));
             });
-            this.items(items);
+            this.shots(shots);
             
             this.stats({
                page: data.page,
@@ -74,7 +80,7 @@
       this.fetch();
    }, list);
    
-   // Export to global namespace: dribbble.viewModel.list
-   $.extend(window.dribbble.viewModel, { list: list });
+   // Export to global namespace: courrrt.viewModel.list
+   $.extend(window.courrrt.viewModel, { list: list });
    
 })(jQuery, window);

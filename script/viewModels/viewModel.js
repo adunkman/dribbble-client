@@ -4,8 +4,8 @@
       title: "courrrt"
    };
    
-   // Export to global namespace: dribbble.viewModel
-   $.extend(window, { dribbble: window.dribbble || { } });
-   $.extend(window.dribbble, { viewModel: viewModel });
+   // Export to global namespace: courrrt.viewModel
+   $.extend(window, { courrrt: window.courrrt || { } });
+   $.extend(window.courrrt, { viewModel: viewModel });
    
 })(jQuery, window);

@@ -14,6 +14,9 @@
       
       <script type="text/javascript" src="script/ext/ko.bindingHandlers.js"></script>
       
+      <script type="text/javascript" src="script/models/player.js"></script>
+      <script type="text/javascript" src="script/models/shot.js"></script>
+      
       <script type="text/javascript" src="script/viewModels/viewModel.js"></script>
       <script type="text/javascript" src="script/viewModels/viewModel.list.js"></script>
       
@@ -21,15 +24,15 @@
          $(document).ready(function () {
             
             // Set HTML title
-            dribbble.viewModel.list.subscribe(function () {
+            courrrt.viewModel.list.subscribe(function () {
                window.document.title = this.title + " \u2192 " + this.list();
-            }, window.dribbble.viewModel)
+            }, window.courrrt.viewModel)
             
             // Default feed
-            dribbble.viewModel.list("popular");
+            courrrt.viewModel.list("popular");
             
             // Ready, set...
-            ko.applyBindings(dribbble.viewModel);
+            ko.applyBindings(courrrt.viewModel);
             
          });
       </script>
@@ -56,10 +59,10 @@
       </header>
       
       <section class="shots-list">
-         <ul data-bind="template: { name: 'listItem', foreach: list.items }"></ul>
+         <ul data-bind="template: { name: 'listItem', foreach: list.shots }"></ul>
          <script id="listItem" type="text/x-jquery-tmpl">
             <li>
-               <img src="${image_teaser_url}" />
+               <img src="${image.teaser_url}" class="teaser" />
             </li>
          </script>
       </section>
