@@ -3,14 +3,18 @@
    var player = function (api) {
       return {
          id: api.id,
-         name: api.name,
-         username: api.username,
+         name: api.name || api.username,
          avatar: api.avatar_url,
          createdAt: new Date(api.created_at),
-      
+         
          location: {
             description: api.location,
-            map: "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=200x150&sensor=false&maptype=terrain&center=" + api.location
+            map: "http://maps.google.com/maps?q=" + api.location
+         },
+         
+         dribbble: {
+            username: api.username,
+            profile: api.url
          },
          
          twitter: {

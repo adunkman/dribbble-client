@@ -25,6 +25,7 @@ header.page
    top: 0;
    left: 0;
    width: 100%;
+   z-index: 1101;
    
    .background-gradient(rgba(68, 76, 85, 0.9), rgba(51, 58, 65, 0.9));
    .box-shadow(5px, 0, 5px, 0.5);
@@ -111,6 +112,39 @@ section.shots-list
          background-color: rgba(255, 255, 255, 0.2);
          .box-shadow(2px, 2px, 2px, 0.4);
          .border-radius(7px);
+      }
+   }
+}
+
+section.shot-overlay
+{
+   color: #444;
+   
+   header
+   {
+      .background-gradient(rgba(68, 76, 85, 0.9), rgba(51, 58, 65, 0.9));
+      
+      h1
+      {
+         font-size: 14pt;
+         font-weight: bold;
+         color: #eee;
+         display: inline-block;
+      }
+      
+      time 
+      {
+         color: #aaa;
+         display: inline-block;
+         vertical-align: middle;
+      }
+   }
+   
+   .player
+   {
+      .avatar
+      {
+         float: left;
       }
    }
 }
