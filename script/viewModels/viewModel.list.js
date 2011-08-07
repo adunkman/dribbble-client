@@ -10,8 +10,7 @@
    
    var shot = window.courrrt.shot;
    
-   var list = ko.observable();
-   $.extend(list, {
+   var list = $.extend(ko.observable(), {
       feeds: {
          popular: "http://api.dribbble.com/shots/popular",
          everyone: "http://api.dribbble.com/shots/everyone",

@@ -63,47 +63,25 @@
          </div>
       </header>
       
-      <section class="shots-list">
-         <ul data-bind="template: { name: 'listItem', foreach: list.shots }"></ul>
+      <aside class="page">
+         <div class="wrapper">
+            <div class="content-container">
+               <div class="intro container" data-bind="visible: shot() === null">
+                  
+               </div>
+               <div class="shot container" data-bind="visible: shot() !== null">
+                  <p>Test</p>
+               </div>
+            </div>
+         </div>
+      </aside>
+      
+      <section class="shots">
+         <ul data-bind="template: { name: 'listItem', foreach: list.shots }" class="list"></ul>
          <script id="listItem" type="text/x-jquery-tmpl">
-            <li data-bind="fancybox: { overlayColor: '#333A41', template: 'shotOverlay' }">
+            <li data-bind="click: function () { courrrt.viewModel.shot($item); }">
                <img src="${image.teaser_url}" class="teaser" />
             </li>
-         </script>
-         <script id="shotOverlay" type="text/x-jquery-tmpl">
-            <section class="shot-overlay">
-               <header>
-                  <h1>${title}</h1>
-                  <time data-bind="timeAgo: {}" datetime="${createdAt}"></time>
-               </header>
-
-               <img src="${image.url}" class="shot" />
-               
-               <aside>
-                  <div class="player">
-                     <img src="${player.avatar}" class="avatar" />
-                     <h2>${player.name}</h2>
-                     
-                     <ul class="attributes">
-                        {{if player.location.description}}
-                           <li class="location">
-                              <a href="${player.location.map}">${player.location.description}</a>
-                           </li>
-                        {{/if}}
-                        <li class="dribbble">
-                           <a href="${player.dribbble.profile}">${player.dribbble.username}</a>
-                        </li>
-                        {{if player.twitter.username}}
-                           <li class="twitter">
-                              <a href="${player.twitter.profile}">${player.twitter.username}</a>
-                           </li>
-                        {{/if}}
-                     </ul>
-                  </div>
-                  <ul>
-                  </ul>
-               </aside>
-            </section>
          </script>
       </section>
       

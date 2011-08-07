@@ -1,5 +1,27 @@
 @import 'mixins.less';
 
+// 4 columns of shots
+header.page div.wrapper, aside.page div.wrapper, section.shots { width: 1316px; }
+section.shots ul.list { width: 864px; }
+
+// 3 columns of shots
+@media (max-width: 1356px) {
+   header.page div.wrapper, aside.page div.wrapper, section.shots { width: 1100px; }
+   section.shots ul.list { width: 648px; }
+}
+
+// 2 columns of shots
+@media (max-width: 1138px) {
+   header.page div.wrapper, aside.page div.wrapper, section.shots { width: 884px; }
+   section.shots ul.list { width: 432px; }
+}
+
+// 1 column of shots
+@media (max-width: 924px) {
+   header.page div.wrapper, aside.page div.wrapper, section.shots { width: 668px; }
+   section.shots ul.list { width: 216px; }
+}
+
 html
 {
    
@@ -25,15 +47,21 @@ header.page
    top: 0;
    left: 0;
    width: 100%;
-   z-index: 1101;
+   z-index: 1;
    
    .background-gradient(rgba(68, 76, 85, 0.9), rgba(51, 58, 65, 0.9));
    .box-shadow(5px, 0, 5px, 0.5);
    
    div.wrapper
    {
-      width: 88%;
+      // Width is responsive.
       margin: 0 auto;
+      
+      // Animate width changes
+      transition: width .2s ease-in-out; 
+      -o-transition: width .2s ease-in-out; 
+      -moz-transition: width .2s ease-in-out; 
+      -webkit-transition: width .2s ease-in-out;
    }
    
    h1
@@ -91,13 +119,46 @@ header.page
    }
 }
 
-section.shots-list
+aside.page
 {
-   width: 88%;
-   margin: 0 auto;
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
    
-   ul
+   div.wrapper
    {
+      // Width is responsive.
+      margin: 0 auto;
+      height: 100%;
+      
+      div.content-container
+      {
+         float: right;
+         height: 100%;
+         width: 440px;
+         
+         color: #fff;
+         background-color: rgba(255, 255, 255, 0.1);
+         
+         div.container
+         {
+            margin: 70px 20px 20px 20px;
+         }
+      }
+   }
+}
+
+section.shots
+{
+   // Width is responsive.
+   margin: 0 auto;
+   overflow: hidden;
+   
+   ul.list
+   {
+      // Width is responsive.
       
       li 
       {
@@ -114,37 +175,12 @@ section.shots-list
          .border-radius(7px);
       }
    }
-}
-
-section.shot-overlay
-{
-   color: #444;
    
-   header
+   &:after
    {
-      .background-gradient(rgba(68, 76, 85, 0.9), rgba(51, 58, 65, 0.9));
-      
-      h1
-      {
-         font-size: 14pt;
-         font-weight: bold;
-         color: #eee;
-         display: inline-block;
-      }
-      
-      time 
-      {
-         color: #aaa;
-         display: inline-block;
-         vertical-align: middle;
-      }
-   }
-   
-   .player
-   {
-      .avatar
-      {
-         float: left;
-      }
+      content: "";
+      height: 0;
+      display: block;
+      clear: both;
    }
 }
