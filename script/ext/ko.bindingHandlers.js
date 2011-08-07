@@ -6,6 +6,8 @@
    
    var handlers = {};
    
+   // Calls a function when an element is scrolled within a certain number
+   // of pixels from the top or bottom.
    handlers.scroll = {
       init: function (element, valueAccessor) {
          var $element = $(element);

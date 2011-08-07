@@ -51,6 +51,7 @@
             </nav>
          
             <h1 data-bind="text: title"></h1>
+            <div class="loading" data-bind="visible: list.state() === 'loading'"></div>
          </div>
       </header>
       

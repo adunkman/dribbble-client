@@ -18,13 +18,13 @@
    });
 
    list.reset = function () {
-      this.items([]);
       this.stats({
          page: null,
          pages: null,
          per_page: null,
          total: null
       });
+      this.items([]);
    }.bind(list);
    
    list.reset();

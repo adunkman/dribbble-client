@@ -39,6 +39,7 @@ header.page
    {
       text-indent: -10000px;
       overflow: hidden;
+      display: inline-block;
       width: 115px;
       height: 30px;
       margin: 10px 10px 10px 0;
@@ -47,11 +48,23 @@ header.page
       opacity: 0.8;
    }
    
+   div.loading
+   {
+      width: 16px;
+      height: 16px;
+      margin: 5px 10px 0 0;
+      opacity: 0.5;
+      
+      display: inline-block;
+      vertical-align: middle;
+      
+      background: url('images/loading.gif') no-repeat;
+   }
+   
    nav
    {
       float: right;
-      height: 30px;
-      margin: 5px 0 0 10px;
+      margin: 15px 0 0 10px;
       
       li
       {
@@ -77,6 +90,24 @@ header.page
    }
 }
 
+@-webkit-keyframes show-shots 
+{
+   0%
+   {
+      -webkit-transform: scale(0);
+   }
+   
+   80%
+   {
+      -webkit-transform: scale(1.1);
+   }
+   
+   100%
+   {
+      -webkit-transform: scale(1);
+   }
+}
+
 section.shots-list
 {
    width: 88%;
@@ -89,14 +120,17 @@ section.shots-list
       {
          float: left;
          overflow: hidden;
+         cursor: pointer;
          
-         margin: 15px 8px;
+         margin: 0 8px 30px 8px;
          width: 200px;
          height: 150px;
          
          background-color: rgba(255, 255, 255, 0.2);
          .box-shadow(2px, 2px, 2px, 0.4);
          .border-radius(7px);
+         
+         -webkit-animation: show-shots 300ms ease-out;
       }
    }
 }
