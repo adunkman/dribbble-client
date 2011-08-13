@@ -6,6 +6,7 @@
          name: api.name || api.username,
          avatar: api.avatar_url,
          createdAt: new Date(api.created_at),
+         website: api.website_url,
          
          location: {
             description: api.location,

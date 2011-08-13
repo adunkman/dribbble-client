@@ -14,6 +14,7 @@
       return {
          id: api.id,
          title: api.title,
+         url: api.url,
          createdAt: new Date(api.created_at),
       
          image: {

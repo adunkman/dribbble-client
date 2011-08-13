@@ -73,6 +73,62 @@
          }.bind(this)
       });
    }.bind(list);
+   
+   list.next = function () {
+      this.go(1);
+   }.bind(list);
+   
+   list.previous = function () {
+      this.go(-1);
+   }.bind(list);
+   
+   list.go = function (shift) {
+      var index, selected = this.shot(), shots = this.list.shots();
+      
+      if (selected === null) {
+         this.shot(shots[0]);
+         this.list.scrollTo(shots[0]);
+         return;
+      }
+      
+      // Find the index of the selected shot.
+      $.each (shots, function (i, shot) {
+         if (selected.id === shot.id) {
+            index = i;
+            return false; // break
+         }
+      });
+      
+      if (index === undefined) {
+         return;
+      }
+      
+      index += shift;
+      
+      if (index < 0) {
+         index = 0;
+      }
+      if (index >= shots.length) {
+         index = shots.length - 1;
+      }
+      
+      this.shot(shots[index]);
+      this.list.scrollTo(shots[index]);
+   }.bind(window.courrrt.viewModel);
+   
+   list.scrollTo = function (shot) {
+      var $element = $("img[src='" + shot.image.teaser_url + "']");
+      var scrollTop = $("body").scrollTop(), 
+         windowHeight = $(window).height(),
+         offset = $element.offset().top,
+         height = $element.height();
+      
+      if (offset + height > scrollTop + windowHeight || offset < scrollTop) {
+         $("body").stop().animate({
+            scrollTop: offset + height - windowHeight / 2
+         }, 500, "easeInOutExpo");
+      }
+   }.bind(list);
 
    list.subscribe(function () {
       this.reset();

@@ -1,8 +1,19 @@
 (function ($, window) {
    
    var viewModel = {
-      title: "courrrt"
+      title: "courrrt",
+      
+      reset: ko.observable()
    };
+   
+   viewModel.reset.subscribe(function () {
+      
+      // Scroll to top
+      $("body").stop().animate({
+         scrollTop: 0
+      }, 1000, "easeInOutExpo");
+      
+   });
    
    // Export to global namespace: courrrt.viewModel
    $.extend(window, { courrrt: window.courrrt || { } });

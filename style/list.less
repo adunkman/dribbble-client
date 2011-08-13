@@ -22,6 +22,11 @@ section.shots ul.list { width: 864px; }
    section.shots ul.list { width: 216px; }
 }
 
+aside.page keyboard-shortcuts { display: block; }
+@media (max-height: 619px) {
+   aside.page .keyboard-shortcuts { display: none; }
+}
+
 html
 {
    
@@ -29,7 +34,7 @@ html
    font-size: 100%;
 
    color: #999;
-   background: #333A41 url('images/list-bg.png');
+   background: #2d2d2d url('images/broderick.png');
    height: 100%;
    
    overflow: scroll;
@@ -41,43 +46,60 @@ body
    padding: 20px;
 }
 
+a
+{
+   color: inherit;
+}
+
 header.page
 {
    position: fixed;
    top: 0;
    left: 0;
    width: 100%;
-   z-index: 1;
+   z-index: 2;
    
-   .background-gradient(rgba(68, 76, 85, 0.9), rgba(51, 58, 65, 0.9));
+   .background-gradient(rgba(102, 102, 102, 0.9), rgba(64, 64, 64, 0.9));
    .box-shadow(5px, 0, 5px, 0.5);
    
-   div.wrapper
+   .wrapper
    {
       // Width is responsive.
       margin: 0 auto;
       
       // Animate width changes
-      transition: width .2s ease-in-out; 
-      -o-transition: width .2s ease-in-out; 
-      -moz-transition: width .2s ease-in-out; 
-      -webkit-transition: width .2s ease-in-out;
+      .transition (width, .2s, ease-in-out);
    }
    
    h1
    {
       text-indent: -10000px;
-      overflow: hidden;
-      display: inline-block;
       width: 115px;
       height: 30px;
       margin: 10px 10px 10px 0;
       
-      background: url('images/courrrt.png') no-repeat;
       opacity: 0.8;
+      overflow: hidden;
+      display: inline-block;
+      cursor: pointer;
+      
+      background: url('images/courrrt.png') no-repeat;
+      .transition (opacity, .1s, linear);
+      
+      &:hover
+      {
+         opacity: 0.99;
+         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      }
+      
+      &:active
+      {
+         margin: 11px 9px 9px 1px;
+         text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+      }
    }
    
-   div.loading
+   .loading
    {
       width: 16px;
       height: 16px;
@@ -100,20 +122,60 @@ header.page
          display: inline-block;
          padding: 3px 10px;
          .border-radius(12px);
+         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
          
          cursor: pointer;
          
          &:hover
          {
-            text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
             color: #bbb;
          }
          
          &.selected
          {
-            background-color: #6A737C;
-            text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 1px;
-            color: #bbb;
+            background-color: #797979;
+            color: #ccc;
+         }
+      }
+   }
+}
+
+section.shots
+{
+   // Width is responsive.
+   margin: 0 auto;
+
+   .list
+   {
+      // Width is responsive.
+      z-index: 1;
+      position: relative;
+
+      li 
+      {
+         float: left;
+         cursor: pointer;
+         overflow: hidden;
+         background-clip: padding-box;
+
+         margin: 0 8px 30px 8px;
+         width: 200px;
+         height: 150px;
+
+         background-color: rgba(255, 255, 255, 0.2);
+         .box-shadow(2px, 2px, 2px, 0.4);
+         .border-radius(7px);
+                  
+         &:active
+         {
+            margin: 1px 7px 29px 9px;
+            .box-shadow(1px, 1px, 1px, 0.4);
+         }
+         
+         &.selected 
+         {
+            margin: 0 8px 30px 8px;
+            .box-shadow(0, 0, 10px, 1, 234, 76, 137);
          }
       }
    }
@@ -124,63 +186,175 @@ aside.page
    position: fixed;
    top: 0;
    left: 0;
-   height: 100%;
    width: 100%;
-   
-   div.wrapper
+   height: 100%;
+
+   .wrapper
    {
       // Width is responsive.
       margin: 0 auto;
+      position: relative;
       height: 100%;
-      
-      div.content-container
+
+      .content-container
       {
          float: right;
-         height: 100%;
+         position: relative;
          width: 440px;
-         
-         color: #fff;
-         background-color: rgba(255, 255, 255, 0.1);
-         
-         div.container
+         height: 100%;
+         z-index: 1;
+
+         background-color: #404040;
+         .box-shadow(0, 0, 5px, 0.5);
+
+         .container
          {
-            margin: 70px 20px 20px 20px;
+            padding: 70px 20px 20px 20px;
+            overflow: auto;
          }
       }
    }
-}
-
-section.shots
-{
-   // Width is responsive.
-   margin: 0 auto;
-   overflow: hidden;
    
-   ul.list
+   .keyboard-shortcuts
    {
-      // Width is responsive.
+      // Display is responsive.
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 400px;
+      padding: 20px 20px 40px 20px;
+
+      text-align: center;         
+
+      border-top: 1px solid #333;
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #777;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
       
-      li 
+      h3
       {
-         float: left;
-         cursor: pointer;
-         overflow: hidden;
-         
-         margin: 0 8px 30px 8px;
-         width: 200px;
-         height: 150px;
-         
-         background-color: rgba(255, 255, 255, 0.2);
-         .box-shadow(2px, 2px, 2px, 0.4);
-         .border-radius(7px);
+         margin-bottom: 10px;
       }
    }
    
-   &:after
+   .intro
    {
-      content: "";
-      height: 0;
-      display: block;
-      clear: both;
+      h2
+      {
+         font-size: 1.5em;
+         line-height: 35px;
+         margin: 20px 0;
+         
+         text-align: center;
+         
+         .name
+         {
+            display: inline-block;
+            overflow: hidden;
+            text-indent: -10000px;
+            
+            width: 115px;
+            height: 30px;
+            
+            opacity: 0.8;
+            background: url('images/courrrt.png') no-repeat;
+         }
+      }
+      
+      p
+      {
+         margin-bottom: 1em;
+         
+         .name
+         {
+            display: inline-block;
+            overflow: hidden;
+            text-indent: -10000px;
+            
+            width: 69px;
+            height: 18px;
+            
+            opacity: 0.8;
+            background: url('images/courrrt-small.png') no-repeat;
+         }
+      }
+   }
+   
+   .shot
+   {
+      .player
+      {
+         margin-bottom: 20px;
+         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+         
+         img.avatar
+         {
+            width: 50px;
+            height: 50px;
+            padding: 3px;
+            margin: 0 15px 0 -3px;
+            
+            float: left;
+
+            background-color: rgba(255, 255, 255, 0.2);
+            .border-radius(3px);
+         }
+         
+         h2
+         {
+            padding-top: 4px;
+            line-height: 30px;
+            font-size: 1.3em;
+            
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            
+            color: #eee;
+         }
+         
+         .author
+         {
+            padding-bottom: 4px;
+            color: #888;
+            line-height: 20px;
+            
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            
+            .name
+            {
+               color: #aaa;
+               padding-left: 20px;
+               background: url('images/dribbble-ball-mark.png') no-repeat left center;
+            }
+         }
+      }
+      
+      .shot-container
+      {
+         padding: 3px;
+         margin: -3px;
+         width: 400px;
+         height: 300px;
+         line-height: 300px;
+         
+         display: block;
+         text-align: center;
+         
+         background-color: rgba(255, 255, 255, 0.2);
+         .border-radius(3px);
+         
+         img.shot
+         {
+            margin-top: -4px;
+            max-width: 400px;
+            max-height: 300px;
+            
+            display: inline-block;
+            vertical-align: middle;
+         }
+      }      
    }
 }

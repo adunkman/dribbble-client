@@ -28,11 +28,50 @@
       <script type="text/javascript">
          $(document).ready(function () {
             
-            // Set HTML title
+            // Set HTML title when the list changes
             courrrt.viewModel.list.subscribe(function () {
                window.document.title = this.title + " \u2192 " + this.list();
-            }, window.courrrt.viewModel)
+            }, window.courrrt.viewModel);
             
+            // Handle keyboard shortcuts.
+            $(document).keydown(function (e) {
+               
+               switch (e.which) {
+                  case 79:  // O
+                  case 111: // o
+                  case 83:  // S
+                  case 115: // s
+                  case 13:  // enter
+                     this.shot.open();
+                     e.preventDefault();
+                     break;
+                  
+                  case 85:  // U
+                  case 117: // u
+                  case 80:  // P
+                  case 112: // p
+                     this.shot.openPlayer();
+                     e.preventDefault();
+                     break;
+                     
+                  case 37: // left arrow
+                     this.list.previous();
+                     e.preventDefault();
+                     break;
+                  
+                  case 39: // right arrow
+                     this.list.next();
+                     e.preventDefault();
+                     break;
+                     
+                  case 27: // escape
+                     this.reset(e);
+                     e.preventDefault();
+                     break;
+               }
+               
+            }.bind(window.courrrt.viewModel));
+                        
             // Default feed
             courrrt.viewModel.list("popular");
             
@@ -58,32 +97,58 @@
                </script>
             </nav>
          
-            <h1 data-bind="text: title"></h1>
+            <h1 data-bind="text: title, click: reset"></h1>
             <div class="loading" data-bind="visible: list.state() === 'loading'"></div>
          </div>
       </header>
       
-      <aside class="page">
-         <div class="wrapper">
-            <div class="content-container">
-               <div class="intro container" data-bind="visible: shot() === null">
-                  
-               </div>
-               <div class="shot container" data-bind="visible: shot() !== null">
-                  <p>Test</p>
-               </div>
-            </div>
-         </div>
-      </aside>
-      
       <section class="shots">
          <ul data-bind="template: { name: 'listItem', foreach: list.shots }" class="list"></ul>
          <script id="listItem" type="text/x-jquery-tmpl">
-            <li data-bind="click: function () { courrrt.viewModel.shot($item); }">
+            <li data-bind="css: { selected: courrrt.viewModel.shot() && courrrt.viewModel.shot().id === id }, click: function () { courrrt.viewModel.shot($data); }">
                <img src="${image.teaser_url}" class="teaser" />
             </li>
          </script>
       </section>
+   
+      <aside class="page">
+         <div class="wrapper">
+            <div class="content-container">
+               <div class="keyboard-shortcuts">
+                  <h3>Try jammin&rsquo; on some keys:</h3>
+                  
+                  <ul>
+                     <li><kbd>&larr;</kbd>, <kbd>&rarr;</kbd> navigate shots</li>
+                     <li><kbd>u</kbd>, <kbd>p</kbd> view user profile on dribbble</li>
+                     <li><kbd>o</kbd>, <kbd>s</kbd> view shot on dribbble</li>
+                  </ul>
+               </div>
+               
+               <div class="intro container" data-bind="visible: shot() === null">
+                  
+                  <h2>Welcome to the <span class="name">courrrt</span>!</h2>
+                  
+                  <p><span class="name">courrrt</span> is a simple <a href="http://dribbble.com" target="_blank">dribbble</a> client, which lets you flip through a lot of shots, quickly.</p>
+                  <p>It doesn&rsquo;t do a lot. That&rsquo;s by design.</p>
+                                    
+               </div>
+               <div class="shot container" data-bind="template: { name: 'shotBar', data: shot, afterRender: shot.render }"></div>
+               <script id="shotBar" type="text/x-jquery-tmpl">
+               
+                  <div class="player">
+                     <img src="${player.avatar}" class="avatar" />
+                     <h2 title="${title}">${title}</h2>
+                     <p class="author"><a href="${player.dribbble.profile}" title="${player.dribbble.username}" class="name" target="_blank">${player.name}</a>, <span class="timeago" title="${createdAt}"></span></p>
+                  </div>
+                  
+                  <a class="shot-container" href="${url}" target="_blank">
+                     <img src="${image.url}" class="shot" />
+                  </a>
+                  
+               </script>
+            </div>
+         </div>
+      </aside>
       
    </body>
 </html>
