@@ -61,6 +61,7 @@ header.page
    {
       // Width is responsive.
       margin: 0 auto;
+      position: relative;
       
       // Animate width changes
       .transition (width, .2s, ease-in-out);
@@ -101,8 +102,9 @@ header.page
       margin: 5px 10px 0 0;
       opacity: 0.5;
       
-      display: inline-block;
-      vertical-align: middle;
+      position: absolute;
+      top: 15px;
+      left: 125px;
       
       background: url('images/loading.gif') no-repeat;
    }
@@ -335,7 +337,8 @@ aside.page
          margin-bottom: 20px;
          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
          
-         img.avatar
+         img.avatar,
+         .avatar-spacer
          {
             width: 50px;
             height: 50px;

@@ -1,13 +1,5 @@
 (function ($, window) {
    
-   if (!window.courrrt) {
-      throw "courrrt is required."
-   }
-   
-   if (!window.courrrt.player) {
-      throw "courrrt.player is required."
-   }
-   
    var player = window.courrrt.player;
    
    var shot = function (api) {

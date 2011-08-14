@@ -8,28 +8,10 @@
    
    // Sets the text of the element to be the relative time ago.
    handlers.timeAgo = {
-      update: function (element) {
-         $(element).timeago();
+      update: function (element, valueAccessor) {
+         $(element).attr('title', ko.utils.unwrapObservable(valueAccessor())).timeago();
       }
    }
-   
-   // Creates a fancybox (lightbox-y overlay).
-   handlers.fancybox = {
-      init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-         var $element = $(element);
-         var $overlay = $("<div></div>");
-         var settings = valueAccessor();
-         
-         ko.applyBindingsToNode($overlay[0], settings, viewModel);
-         
-         $element.fancybox($.extend(settings, {
-            content: $overlay,
-            orig: $element,
-            transitionIn: 'elastic',
-            transitionOut: 'elastic'
-         }));
-      }
-   };
    
    // Calls a function when an element is scrolled within a certain number
    // of pixels from the top or bottom.

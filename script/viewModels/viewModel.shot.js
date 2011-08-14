@@ -6,14 +6,6 @@
    
    var shot = ko.observable(null);
    
-   
-   // When a shot is rendered
-   shot.render = function (elements) {
-      // Invoke jquery.timeago
-      $(".timeago", elements).timeago();
-   }.bind(shot);
-   
-   
    shot.open = function () {
      if (this() === null) {
         return;

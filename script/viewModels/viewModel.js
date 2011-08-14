@@ -9,7 +9,7 @@
    viewModel.reset.subscribe(function () {
       
       // Scroll to top
-      $("body").stop().animate({
+      $("html, body").stop().animate({
          scrollTop: 0
       }, 1000, "easeInOutExpo");
       

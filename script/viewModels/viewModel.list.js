@@ -118,13 +118,13 @@
    
    list.scrollTo = function (shot) {
       var $element = $("img[src='" + shot.image.teaser_url + "']");
-      var scrollTop = $("body").scrollTop(), 
+      var scrollTop = $("html, body").scrollTop(), 
          windowHeight = $(window).height(),
          offset = $element.offset().top,
          height = $element.height();
       
       if (offset + height > scrollTop + windowHeight || offset < scrollTop) {
-         $("body").stop().animate({
+         $("html, body").stop().animate({
             scrollTop: offset + height - windowHeight / 2
          }, 500, "easeInOutExpo");
       }

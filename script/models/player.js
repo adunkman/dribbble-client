@@ -1,10 +1,15 @@
 (function ($, window) {
    
    var player = function (api) {
+      var avatar = api.avatar_url;
+      if (avatar === "/images/avatar-default.gif") {
+         avatar = null;
+      }
+      
       return {
          id: api.id,
          name: api.name || api.username,
-         avatar: api.avatar_url,
+         avatar: avatar,
          createdAt: new Date(api.created_at),
          website: api.website_url,
          
@@ -31,7 +36,7 @@
             comments: api.comments_count,
             commentsReceived: api.comments_received_count,
             likes: api.likes_count,
-            likesReceived: api.likes_received_count,
+            likesReceived: api.likes_received_count
          }
       };
    };
