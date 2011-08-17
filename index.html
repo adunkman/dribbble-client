@@ -118,6 +118,20 @@
                   </ul>
                </div>
                
+               <div class="intro container" data-bind="visible: shot() === null">
+                  
+                  <h2>Welcome to the <span class="name">courrrt</span>!</h2>
+                  
+                  <p><span class="name">courrrt</span> is a simple <a href="http://dribbble.com" target="_blank">dribbble</a> client, which lets you flip through a lot of shots, quickly.</p>
+                  
+                  <div class="explain">
+                     <h3>What are these crazy words&#8253;</h3>
+                  
+                     <p>In the dribbble world, a <strong>player</strong> is a user, and a <strong>shot</strong> is an image that a player uploads.</p>
+                     <p>The <strong>debuts</strong> feed is a player&rsquo;s first shot on dribbble.</p>
+                  </div>
+               </div>
+               
                <div class="shot container" data-bind="template: { name: 'shotBar', data: shot }"></div>
                <script id="shotBar" type="text/x-jquery-tmpl">
                
