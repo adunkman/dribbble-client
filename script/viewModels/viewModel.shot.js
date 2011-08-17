@@ -4,8 +4,7 @@
       throw "courrrt.viewModel is required."
    }
    
-   var shot = {
-   };
+   var shot = ko.observable();
       
    // Export to global namespace: courrrt.viewModel.list
    $.extend(window.courrrt.viewModel, { shot: shot });

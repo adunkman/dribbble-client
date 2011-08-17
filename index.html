@@ -58,7 +58,7 @@
          
          <script id="listItem" type="text/x-jquery-tmpl">
          
-            <li>
+            <li data-bind="click: function () { window.courrrt.viewModel.shot($data); }">
                <img src="${image.teaser_url}" class="teaser" />
             </li>
             
@@ -78,17 +78,28 @@
                   </ul>
                </div>
                
-               <div class="shot container">
+               <div class="shot container" data-bind="template: { name: 'shotBar', data: shot }"></div>
+               <script id="shotBar" type="text/x-jquery-tmpl">
+               
                   <div class="player">
-                     <div class="avatar-spacer"></div>
-                     <h2 title="Shot title here">Shot title here</h2>
-                     <p class="author"><a href="to-dribbble-profile" title="dribbble-username" class="name" target="_blank">Player name</a>, <span class="timeago">Created time</span></p>
+                     {{if player.avatar}}
+                        <img src="${player.avatar}" class="avatar" />
+                     {{else}}
+                        <div class="avatar-spacer"></div>
+                     {{/if}}
+                     
+                     <h2 title="${title}">${title}</h2>
+                     
+                     <p class="author">
+                        <a href="${player.dribbble.profile}" title="${player.dribbble.username}" class="name" target="_blank">${player.name}</a>
+                     </p>
                   </div>
                   
-                  <a class="shot-container" href="link-to-shot" target="_blank">
-                     <img src="shot-url" class="shot" />
+                  <a class="shot-container" href="${url}" target="_blank">
+                     <img src="${image.url}" class="shot" />
                   </a>
-               </div>
+                  
+               </script>
             </div>
          </div>
       </aside>
