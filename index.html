@@ -5,7 +5,7 @@
       <title>courrrt</title>
       
       <link rel="stylesheet" type="text/css" href="style/reset-min.css" />
-      <link rel="stylesheet" type="text/css" href="style/list.css" />
+      <link rel="stylesheet/less" type="text/less" href="style/list.less" />
       <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
       
       <script type="text/javascript" src="script/lib/jquery-1.6.2.js"></script>
@@ -13,30 +13,115 @@
       <script type="text/javascript" src="script/lib/jquery.timeago.js"></script>
       <script type="text/javascript" src="script/lib/jquery.easing-1.3.pack.js"></script>
       <script type="text/javascript" src="script/lib/knockout-1.2.1.debug.js"></script>
+      <script type="text/javascript" src="script/lib/less-1.1.4.js"></script>
+      
+      <script type="text/javascript" src="script/ext/ko.bindingHandlers.js"></script>
+      
+      <script type="text/javascript" src="script/models/player.js"></script>
+      <script type="text/javascript" src="script/models/shot.js"></script>
+      
+      <script type="text/javascript" src="script/viewModels/viewModel.js"></script>
+      <script type="text/javascript" src="script/viewModels/viewModel.list.js"></script>
+      <script type="text/javascript" src="script/viewModels/viewModel.shot.js"></script>
+      
+      <script type="text/javascript">
+         $(document).ready(function () {
+            
+            // Set HTML title when the list changes
+            courrrt.viewModel.list.subscribe(function () {
+               window.document.title = this.title + " \u2192 " + this.list();
+            }, window.courrrt.viewModel);
+            
+            // Handle keyboard shortcuts.
+            $(document).keydown(function (e) {
+               
+               switch (e.which) {
+                  case 79:  // O
+                  case 111: // o
+                  case 83:  // S
+                  case 115: // s
+                  case 13:  // enter
+                     this.shot.open();
+                     e.preventDefault();
+                     break;
+                  
+                  case 85:  // U
+                  case 117: // u
+                  case 80:  // P
+                  case 112: // p
+                     this.shot.openPlayer();
+                     e.preventDefault();
+                     break;
+                     
+                  case 37: // left arrow
+                     this.list.previous();
+                     e.preventDefault();
+                     break;
+                  
+                  case 39: // right arrow
+                     this.list.next();
+                     e.preventDefault();
+                     break;
+                     
+                  case 27: // escape
+                     this.reset(e);
+                     e.preventDefault();
+                     break;
+               }
+               
+            }.bind(window.courrrt.viewModel));
+                        
+            // Default feed
+            courrrt.viewModel.list("popular");
+            
+            // Ready, set...
+            ko.applyBindings(courrrt.viewModel);
+            
+         });
+      </script>
+      
+      <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-25123799-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+      </script>
       
    </head>
-   <body>
+   <body data-bind="scroll: { call: list.fetch, within: 500, of: 'bottom', watch: list.items }">
       
       <header class="page">
          <div class="wrapper">
             <nav>
-               <ul>
-                  <li>FEED 1</li>
-                  <li>FEED 2</li>
-                  <li>FEED 3</li>
-               </ul>
+               <ul data-bind="template: 'listFeeds'"></ul>
+               <script id="listFeeds" type="text/x-jquery-tmpl">
+                  {{each(name, url) list.feeds}}
+                     <li data-bind="css: { selected: list() === name }, click: function () { list(name); }">
+                        ${name}
+                     </li>
+                  {{/each}}
+               </script>
             </nav>
          
-            <h1>courrrt</h1>
+            <h1 data-bind="text: title, click: reset"></h1>
+            <div class="loading" data-bind="visible: list.state() === 'loading'"></div>
          </div>
       </header>
       
       <section class="shots">
-         <ul class="list">
-            <li>
-               <img src="teaser-url" class="teaser" />
+         <ul data-bind="template: { name: 'listItem', foreach: list.shots }" class="list"></ul>
+         <script id="listItem" type="text/x-jquery-tmpl">
+            <li data-bind="css: { selected: courrrt.viewModel.shot() && courrrt.viewModel.shot().id === id }, click: function () { courrrt.viewModel.shot($data); }">
+               <img src="${image.teaser_url}" class="teaser" />
             </li>
-         </ul>
+         </script>
       </section>
    
       <aside class="page">
@@ -52,17 +137,37 @@
                   </ul>
                </div>
                
-               <div class="shot container">
+               <div class="intro container" data-bind="visible: shot() === null">
+                  
+                  <h2>Welcome to the <span class="name">courrrt</span>!</h2>
+                  
+                  <p><span class="name">courrrt</span> is a simple <a href="http://dribbble.com" target="_blank">dribbble</a> client, which lets you flip through a lot of shots, quickly.</p>
+                  
+                  <div class="explain">
+                     <h3>What are these crazy words&#8253;</h3>
+                  
+                     <p>In the dribbble world, a <strong>player</strong> is a user, and a <strong>shot</strong> is an image that a player uploads.</p>
+                     <p>The <strong>debuts</strong> feed is a player&rsquo;s first shot on dribbble.</p>
+                  </div>
+               </div>
+               <div class="shot container" data-bind="template: { name: 'shotBar', data: shot, afterRender: shot.render }"></div>
+               <script id="shotBar" type="text/x-jquery-tmpl">
+               
                   <div class="player">
-                     <div class="avatar-spacer"></div>
-                     <h2 title="Shot title here">Shot title here</h2>
-                     <p class="author"><a href="to-dribbble-profile" title="dribbble-username" class="name" target="_blank">Player name</a>, <span class="timeago">Created time</span></p>
+                     {{if player.avatar}}
+                        <img src="${player.avatar}" class="avatar" />
+                     {{else}}
+                        <div class="avatar-spacer"></div>
+                     {{/if}}
+                     <h2 title="${title}">${title}</h2>
+                     <p class="author"><a href="${player.dribbble.profile}" title="${player.dribbble.username}" class="name" target="_blank">${player.name}</a>, <span class="timeago" data-bind="timeAgo: createdAt"></span></p>
                   </div>
                   
-                  <a class="shot-container" href="link-to-shot" target="_blank">
-                     <img src="shot-url" class="shot" />
+                  <a class="shot-container" href="${url}" target="_blank">
+                     <img src="${image.url}" class="shot" />
                   </a>
-               </div>
+                  
+               </script>
             </div>
          </div>
       </aside>
