@@ -49,15 +49,20 @@
             </nav>
          
             <h1>courrrt</h1>
+            <div class="loading" data-bind="visible: list.state() === 'loading'"></div>
          </div>
       </header>
       
       <section class="shots">
-         <ul class="list">
+         <ul data-bind="template: { name: 'listItem', foreach: list.shots }" class="list"></ul>
+         
+         <script id="listItem" type="text/x-jquery-tmpl">
+         
             <li>
-               <img src="teaser-url" class="teaser" />
+               <img src="${image.teaser_url}" class="teaser" />
             </li>
-         </ul>
+            
+         </script>
       </section>
    
       <aside class="page">

@@ -17,10 +17,13 @@
          debuts: "http://api.dribbble.com/shots/debuts"
       }, 
       
-      shots: ko.observableArray()
+      shots: ko.observableArray(),
+      state: ko.observable()
    });
    
    list.subscribe(function () {
+      
+      this.state("loading");
       
       $.ajax({
          url: this.feeds[this()],
@@ -34,6 +37,7 @@
                shots.push(new shot(shotData));
             });
             this.shots(shots);
+            this.state("");
             
          }.bind(this)
       });
